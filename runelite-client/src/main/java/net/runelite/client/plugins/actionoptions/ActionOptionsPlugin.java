@@ -37,8 +37,8 @@ public class ActionOptionsPlugin extends Plugin{
     @Override
     protected void startUp() throws Exception {
 
-        final ActionOptionsPanel panel = injector.getInstance(ActionOptionsPanel.class);
-        panel.init();
+        final ActionOptionsPanel actionoptionspanel = injector.getInstance(ActionOptionsPanel.class);
+        actionoptionspanel.init();
         final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "normal.png");
 
         navButton = NavigationButton.builder()
