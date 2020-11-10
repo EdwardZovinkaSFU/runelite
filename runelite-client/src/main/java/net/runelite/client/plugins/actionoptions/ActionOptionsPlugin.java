@@ -41,7 +41,7 @@ public class ActionOptionsPlugin extends Plugin{
         navButton = NavigationButton.builder()
                 .tooltip("ActionOptions")
                 .icon(icon)
-                .priority(5)
+                .priority(12)
                 .panel(actionoptionspanel)
                 .build();
 
