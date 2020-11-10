@@ -38,11 +38,6 @@ import net.runelite.client.util.LinkBrowser;
 @Singleton
 public class ActionOptionsPanel extends PluginPanel {
 
-
-    private static int items = 10;
-    private static int npcs = 120;
-    private static int gameobjects = 1230;
-
     private final JLabel loggedLabel = new JLabel();
     private final JRichTextPane emailLabel = new JRichTextPane();
     private JPanel syncPanel;
@@ -76,14 +71,14 @@ public class ActionOptionsPanel extends PluginPanel {
 
         final Font smallFont = FontManager.getRunescapeSmallFont();
 
-        JLabel version = new JLabel(htmlLabel("Interactable Items: ", String.valueOf(items)));
+        JLabel version = new JLabel(htmlLabel("Interactable Items: ", String.valueOf(ActionOptionsPlugin.items)));
         version.setFont(smallFont);
 
         JLabel revision = new JLabel();
         revision.setFont(smallFont);
-        revision.setText(htmlLabel("Active NPCs: ", String.valueOf(npcs)));
+        revision.setText(htmlLabel("Active NPCs: ", String.valueOf(ActionOptionsPlugin.npcs)));
 
-        JLabel launcher = new JLabel(htmlLabel("Game Objects: ", String.valueOf(gameobjects)));
+        JLabel launcher = new JLabel(htmlLabel("Game Objects: ", String.valueOf(ActionOptionsPlugin.gameobjects)));
         launcher.setFont(smallFont);
 
         counterPanel.add(version);

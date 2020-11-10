@@ -2,6 +2,11 @@ package net.runelite.client.plugins.actionoptions;
 
 //Imports
 import net.runelite.api.Client;
+import net.runelite.api.Tile;
+import net.runelite.api.TileItem;
+import net.runelite.api.events.ItemDespawned;
+import net.runelite.api.events.ItemSpawned;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -32,7 +37,10 @@ public class ActionOptionsPlugin extends Plugin{
     private ClientToolbar clientToolbar;
 
     private NavigationButton navButton;
-    private ActionOptionsPanel actionoptionspanel;
+
+    public static int items = 0;
+    public static int npcs = 0;
+    public static int gameobjects = 0;
 
     @Override
     protected void startUp() throws Exception {
@@ -57,9 +65,24 @@ public class ActionOptionsPlugin extends Plugin{
         clientToolbar.removeNavigation(navButton);
     }
 
+    @Subscribe
+    public void onItemSpawned(ItemSpawned itemSpawned)
+    {
+        TileItem item = itemSpawned.getItem();
+        Tile tile = itemSpawned.getTile();
 
+        items++;
+    }
 
+    @Subscribe
+    public void onItemDespawned(ItemDespawned itemDespawned)
+    {
+        TileItem item = itemDespawned.getItem();
+        Tile tile = itemDespawned.getTile();
 
+        items--;
+        
+    }
 
 
 }
