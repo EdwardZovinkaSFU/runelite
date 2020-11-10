@@ -5,6 +5,7 @@ import net.runelite.api.Client;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.info.InfoPanel;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
@@ -36,6 +37,8 @@ public class ActionOptionsPlugin extends Plugin{
     @Override
     protected void startUp() throws Exception {
 
+        final ActionOptionsPanel panel = injector.getInstance(ActionOptionsPanel.class);
+        panel.init();
         final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "normal.png");
 
         navButton = NavigationButton.builder()
