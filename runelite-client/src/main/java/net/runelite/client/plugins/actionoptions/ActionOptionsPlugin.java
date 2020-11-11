@@ -38,9 +38,9 @@ public class ActionOptionsPlugin extends Plugin{
 
     private NavigationButton navButton;
 
-    public static int items = 0;
-    public static int npcs = 0;
-    public static int gameobjects = 0;
+    //public static int items = 0;
+    //public static int npcs = 0;
+    //public static int gameobjects = 0;
 
     @Override
     protected void startUp() throws Exception {
@@ -64,25 +64,5 @@ public class ActionOptionsPlugin extends Plugin{
     protected void shutDown() throws Exception{
         clientToolbar.removeNavigation(navButton);
     }
-
-    @Subscribe
-    public void onItemSpawned(ItemSpawned itemSpawned)
-    {
-        TileItem item = itemSpawned.getItem();
-        Tile tile = itemSpawned.getTile();
-
-        items++;
-    }
-
-    @Subscribe
-    public void onItemDespawned(ItemDespawned itemDespawned)
-    {
-        TileItem item = itemDespawned.getItem();
-        Tile tile = itemDespawned.getTile();
-
-        items--;
-        
-    }
-
 
 }

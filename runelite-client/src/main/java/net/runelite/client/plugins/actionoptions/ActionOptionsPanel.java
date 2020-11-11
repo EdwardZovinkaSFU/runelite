@@ -21,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.HyperlinkEvent;
 import net.runelite.api.Client;
+import net.runelite.api.Tile;
+import net.runelite.api.TileItem;
+import net.runelite.api.events.*;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
 import net.runelite.client.RuneLiteProperties;
@@ -43,6 +46,15 @@ public class ActionOptionsPanel extends PluginPanel {
     private JPanel syncPanel;
     //private JPanel actionsContainer;
 
+    private static int items = 0;
+    private static int npcs = 0;
+    private static int gameobjects = 0;
+
+    private static JPanel counterPanel;
+    private static JLabel itemlabel;
+    private static JLabel npclabel;
+    private static JLabel objectlabel;
+
     @Inject
     @Nullable
     private Client client;
@@ -64,26 +76,26 @@ public class ActionOptionsPanel extends PluginPanel {
         setBackground(ColorScheme.DARK_GRAY_COLOR);
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel counterPanel = new JPanel();
+        counterPanel = new JPanel();
         counterPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
         counterPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         counterPanel.setLayout(new GridLayout(0, 1));
 
         final Font smallFont = FontManager.getRunescapeSmallFont();
 
-        JLabel version = new JLabel(htmlLabel("Interactable Items: ", String.valueOf(ActionOptionsPlugin.items)));
-        version.setFont(smallFont);
+        itemlabel = new JLabel(htmlLabel("Interactable Items: ", String.valueOf(items)));
+        itemlabel.setFont(smallFont);
 
-        JLabel revision = new JLabel();
-        revision.setFont(smallFont);
-        revision.setText(htmlLabel("Active NPCs: ", String.valueOf(ActionOptionsPlugin.npcs)));
+        npclabel = new JLabel();
+        npclabel.setFont(smallFont);
+        npclabel.setText(htmlLabel("Active NPCs: ", String.valueOf(npcs)));
 
-        JLabel launcher = new JLabel(htmlLabel("Game Objects: ", String.valueOf(ActionOptionsPlugin.gameobjects)));
-        launcher.setFont(smallFont);
+        objectlabel = new JLabel(htmlLabel("Game Objects: ", String.valueOf(gameobjects)));
+        objectlabel.setFont(smallFont);
 
-        counterPanel.add(version);
-        counterPanel.add(revision);
-        counterPanel.add(launcher);
+        counterPanel.add(itemlabel);
+        counterPanel.add(npclabel);
+        counterPanel.add(objectlabel);
 
         JPanel container = new JPanel();
         container.setBackground(ColorScheme.DARKER_GRAY_COLOR);
@@ -100,6 +112,54 @@ public class ActionOptionsPanel extends PluginPanel {
     private static String htmlLabel(String key, String value) {
         return "<html><body style = 'color:#a5a5a5'>" + key + "<span style = 'color:white'>" + value + "</span></body></html>";
     }
+
+
+    private void updatePanel(){
+        remove(counterPanel);
+        counterPanel.remove(itemlabel);
+        counterPanel.remove(npclabel);
+        counterPanel.remove(objectlabel);
+
+        itemlabel.setText(htmlLabel("Interactable Items: ", String.valueOf(items)));
+        npclabel.setText(htmlLabel("Active NPCs: ", String.valueOf(npcs)));
+        objectlabel.setText(htmlLabel("Game Objects: ", String.valueOf(gameobjects)));
+
+        counterPanel.add(itemlabel);
+        counterPanel.add(npclabel);
+        counterPanel.add(objectlabel);
+
+        add(counterPanel, BorderLayout.NORTH);
+        repaint();
+    }
+
+
+    @Subscribe
+    public void onItemSpawned(ItemSpawned itemSpawned)
+    {
+        //TileItem item = itemSpawned.getItem();
+        //Tile tile = itemSpawned.getTile();
+
+        items++;
+        //System.out.println(items);
+        updatePanel();
+
+
+
+    }
+
+    @Subscribe
+    public void onItemDespawned(ItemDespawned itemDespawned)
+    {
+        //TileItem item = itemDespawned.getItem();
+        //Tile tile = itemDespawned.getTile();
+
+        items--;
+        //System.out.println(items);
+        updatePanel();
+
+    }
+
+    
 
 
 
