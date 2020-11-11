@@ -115,20 +115,11 @@ public class ActionOptionsPanel extends PluginPanel {
 
 
     private void updatePanel(){
-        //remove(counterPanel);
-        //counterPanel.remove(itemlabel);
-        //counterPanel.remove(npclabel);
-        //counterPanel.remove(objectlabel);
 
         itemlabel.setText(htmlLabel("Interactable Items: ", String.valueOf(items)));
         npclabel.setText(htmlLabel("Active NPCs: ", String.valueOf(npcs)));
         objectlabel.setText(htmlLabel("Game Objects: ", String.valueOf(gameobjects)));
 
-        //counterPanel.add(itemlabel);
-        //counterPanel.add(npclabel);
-        //counterPanel.add(objectlabel);
-
-        //add(counterPanel, BorderLayout.NORTH);
         repaint();
     }
 
@@ -136,27 +127,15 @@ public class ActionOptionsPanel extends PluginPanel {
     @Subscribe
     public void onItemSpawned(ItemSpawned itemSpawned)
     {
-        //TileItem item = itemSpawned.getItem();
-        //Tile tile = itemSpawned.getTile();
-
         items++;
-        //System.out.println(items);
         updatePanel();
-
-
-
     }
 
     @Subscribe
     public void onItemDespawned(ItemDespawned itemDespawned)
     {
-        //TileItem item = itemDespawned.getItem();
-        //Tile tile = itemDespawned.getTile();
-
         items--;
-        //System.out.println(items);
         updatePanel();
-
     }
 
     @Subscribe
