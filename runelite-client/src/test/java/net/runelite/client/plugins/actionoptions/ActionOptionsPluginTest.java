@@ -409,10 +409,10 @@ public class ActionOptionsPluginTest {
 
     @Before
     public void initialization(){
-        //Start Plugin? Maybe? I have no idea how this sh!t works.
-        ActionOptionsPlugin aop = new ActionOptionsPlugin();
+        final ActionOptionsPanel actionoptionspanel = injector.getInstance(ActionOptionsPanel.class);
+
         try{
-            aop.startUp();
+            actionoptionspanel.init();
         }
         catch (Exception e){
             System.out.println("Unexpected Error:");
