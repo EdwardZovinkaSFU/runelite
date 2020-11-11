@@ -464,9 +464,9 @@ public class ActionOptionsPluginTest {
     public void repeatedpost(){
         int iter = 5;
         for (int i =0; i< iter; i++){
-            eventBus.post(npcDespawned);
-            eventBus.post(itemDespawned);
-            eventBus.post(gameObjectDespawned);
+            eventBus.post(npcSpawned);
+            eventBus.post(itemSpawned);
+            eventBus.post(gameObjectSpawned);
         }
         Assertions.assertTrue(ActionOptionsPanel.gameobjects == iter);
         Assertions.assertTrue(ActionOptionsPanel.items == iter);
