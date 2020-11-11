@@ -115,20 +115,20 @@ public class ActionOptionsPanel extends PluginPanel {
 
 
     private void updatePanel(){
-        remove(counterPanel);
-        counterPanel.remove(itemlabel);
-        counterPanel.remove(npclabel);
-        counterPanel.remove(objectlabel);
+        //remove(counterPanel);
+        //counterPanel.remove(itemlabel);
+        //counterPanel.remove(npclabel);
+        //counterPanel.remove(objectlabel);
 
         itemlabel.setText(htmlLabel("Interactable Items: ", String.valueOf(items)));
         npclabel.setText(htmlLabel("Active NPCs: ", String.valueOf(npcs)));
         objectlabel.setText(htmlLabel("Game Objects: ", String.valueOf(gameobjects)));
 
-        counterPanel.add(itemlabel);
-        counterPanel.add(npclabel);
-        counterPanel.add(objectlabel);
+        //counterPanel.add(itemlabel);
+        //counterPanel.add(npclabel);
+        //counterPanel.add(objectlabel);
 
-        add(counterPanel, BorderLayout.NORTH);
+        //add(counterPanel, BorderLayout.NORTH);
         repaint();
     }
 
