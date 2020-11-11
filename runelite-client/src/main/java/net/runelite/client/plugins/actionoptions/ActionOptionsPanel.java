@@ -159,7 +159,30 @@ public class ActionOptionsPanel extends PluginPanel {
 
     }
 
-    
+    @Subscribe
+    public void onNpcSpawned(NpcSpawned npcSpawned){
+        npcs++;
+        updatePanel();
+    }
+
+    @Subscribe
+    public void onNpcDespawned(NpcDespawned npcDespawned){
+        npcs--;
+        updatePanel();
+    }
+
+    @Subscribe
+    public void onGameObjectSpawned(GameObjectSpawned gameObjectSpawned){
+        gameobjects++;
+        updatePanel();
+    }
+
+    @Subscribe
+    public void onGameObjectDespawned(GameObjectDespawned gameObjectDespawned){
+        gameobjects--;
+        updatePanel();
+    }
+
 
 
 
