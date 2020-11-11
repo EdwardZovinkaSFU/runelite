@@ -46,9 +46,9 @@ public class ActionOptionsPanel extends PluginPanel {
     private JPanel syncPanel;
     //private JPanel actionsContainer;
 
-    private static int items = 0;
-    private static int npcs = 0;
-    private static int gameobjects = 0;
+    public static int items = 0;
+    public static int npcs = 0;
+    public static int gameobjects = 0;
 
     private static JPanel counterPanel;
     private static JLabel itemlabel;

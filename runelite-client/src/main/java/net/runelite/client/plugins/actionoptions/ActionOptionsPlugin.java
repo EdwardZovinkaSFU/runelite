@@ -29,9 +29,9 @@ import java.awt.image.BufferedImage;
 
 public class ActionOptionsPlugin extends Plugin{
 
-    @Inject
-    @Nullable
-    private Client client;
+    //@Inject
+    //@Nullable
+    //private Client client;
 
     @Inject
     private ClientToolbar clientToolbar;
