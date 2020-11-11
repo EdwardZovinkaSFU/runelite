@@ -9,9 +9,7 @@ import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.GameObjectSpawned;
-import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.*;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.eventbus.EventBus;
 import org.junit.Before;
@@ -249,6 +247,10 @@ public class ActionOptionsPluginTest {
 
     @Mock
     @Bind
+    private final NpcDespawned npcDespawned = new NpcDespawned(npc);
+
+    @Mock
+    @Bind
     private final Tile tile = new Tile() {
         @Override
         public DecorativeObject getDecorativeObject() {
@@ -387,7 +389,15 @@ public class ActionOptionsPluginTest {
 
     @Mock
     @Bind
+    private final ItemDespawned itemDespawned = new ItemDespawned(tile, titem);
+
+    @Mock
+    @Bind
     private final GameObjectSpawned gameObjectSpawned = new GameObjectSpawned();
+
+    @Mock
+    @Bind
+    private final GameObjectDespawned gameObjectDespawned = new GameObjectDespawned();
 
     //@Mock
     //@Bind
@@ -405,7 +415,7 @@ public class ActionOptionsPluginTest {
             aop.startUp();
         }
         catch (Exception e){
-            System.out.println("Unexpected & Unknown Error");
+            System.out.println("Unexpected Error:");
             System.out.println(e);
         }
 
@@ -420,17 +430,47 @@ public class ActionOptionsPluginTest {
     public void itemSpawnandDespawn(){
         eventBus.post(itemSpawned);
         Assertions.assertTrue(ActionOptionsPanel.items == 1);
+        eventBus.post((itemDespawned));
+        Assertions.assertTrue(ActionOptionsPanel.items == 0);
     }
 
     @Test
     public void npcSpawnandDespawn(){
         eventBus.post(npcSpawned);
         Assertions.assertTrue(ActionOptionsPanel.npcs == 1);
+        eventBus.post(npcDespawned);
+        Assertions.assertTrue(ActionOptionsPanel.npcs == 0);
     }
 
     @Test
     public void gameObjectSpawnandDespawn(){
         eventBus.post(gameObjectSpawned);
         Assertions.assertTrue(ActionOptionsPanel.gameobjects == 1);
+        eventBus.post(gameObjectDespawned);
+        Assertions.assertTrue(ActionOptionsPanel.gameobjects == 0);
     }
+
+    @Test
+    public void negativeNumbers(){
+        eventBus.post(npcDespawned);
+        eventBus.post(itemDespawned);
+        eventBus.post(gameObjectDespawned);
+        Assertions.assertTrue(ActionOptionsPanel.gameobjects == -1);
+        Assertions.assertTrue(ActionOptionsPanel.items == -1);
+        Assertions.assertTrue(ActionOptionsPanel.npcs == -1);
+    }
+
+    @Test
+    public void repeatedpost(){
+        int iter = 5;
+        for (int i =0; i< iter; i++){
+            eventBus.post(npcDespawned);
+            eventBus.post(itemDespawned);
+            eventBus.post(gameObjectDespawned);
+        }
+        Assertions.assertTrue(ActionOptionsPanel.gameobjects == iter);
+        Assertions.assertTrue(ActionOptionsPanel.items == iter);
+        Assertions.assertTrue(ActionOptionsPanel.npcs == iter);
+    }
+
 }
